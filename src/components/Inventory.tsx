@@ -5,9 +5,9 @@ import VehicleCard from './VehicleCard';
 import BMW from '../assets/images/inventory/BMWX5.webp';
 import CAMRY from '../assets/images/inventory/camryToyota.webp';
 import HONDA from '../assets/images/inventory/HondaCivic.jpg';
-import MERCEDES from '../assets/images/inventory/Mercedes-C-class.avif';
-import FORD from '../assets/images/inventory/FordMustang.webp';
-import TESLA from '../assets/images/inventory/TeslaModel-3.webp';
+import MERCEDES from '../assets/images/inventory/MercedesCclass.avif';
+import FORD from '../assets/images/inventory/Fordmustang.webp';
+import TESLA from '../assets/images/inventory/TeslaModel3.webp';
 
 type Filter = 'ALL' | VehicleCategory;
 
