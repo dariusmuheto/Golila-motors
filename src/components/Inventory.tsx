@@ -1,7 +1,13 @@
-import { useEffect, useState } from 'react';
-import { fetchVehicles } from '../lib/api';
+import { useState } from 'react';
 import type { Vehicle, VehicleCategory } from '../types';
 import VehicleCard from './VehicleCard';
+import BMW from '../assets/images/inventory/BMW-X5.webp';
+import CAMRY from '../assets/images/inventory/camryToyota.webp';
+import HONDA from '../assets/images/inventory/Honda-Civic.jpg';
+import MERCEDES from '../assets/images/inventory/Mercedes-C-class.avif';
+import FORD from '../assets/images/inventory/Ford-Mustang.webp';
+import TESLA from '../assets/images/inventory/Tesla-Model-3.webp';
+
 
 type Filter = 'ALL' | VehicleCategory;
 
@@ -11,32 +17,116 @@ const TABS: { label: string; value: Filter }[] = [
   { label: 'For rent', value: 'RENTAL' },
 ];
 
+// Dummy data for development/testing
+const dummyVehicles: Vehicle[] = [
+  {
+    id: '1',
+    make: 'Toyota',
+    model: 'Camry',
+    year: 2023,
+    price: 35000,
+    mileageKm: 15000,
+    transmission: 'Automatic',
+    fuelType: 'Hybrid',
+    category: 'SALE',
+    status: 'AVAILABLE',
+    imageUrl: CAMRY,
+    description: 'Reliable and fuel-efficient sedan perfect for daily commuting.',
+    createdAt: '2024-01-15T10:00:00Z',
+    updatedAt: '2024-01-15T10:00:00Z',
+  },
+  {
+    id: '2',
+    make: 'BMW',
+    model: 'X5',
+    year: 2022,
+    price: 65000,
+    mileageKm: 25000,
+    transmission: 'Automatic',
+    fuelType: 'Gasoline',
+    category: 'SALE',
+    status: 'AVAILABLE',
+    imageUrl: BMW,
+    description: 'Luxury SUV with premium features and excellent performance.',
+    createdAt: '2024-01-16T10:00:00Z',
+    updatedAt: '2024-01-16T10:00:00Z',
+  },
+  {
+    id: '3',
+    make: 'Honda',
+    model: 'Civic',
+    year: 2023,
+    price: 28000,
+    mileageKm: 8000,
+    transmission: 'Manual',
+    fuelType: 'Gasoline',
+    category: 'SALE',
+    status: 'AVAILABLE',
+    imageUrl: HONDA,
+    description: 'Compact and efficient car with great fuel economy.',
+    createdAt: '2024-01-17T10:00:00Z',
+    updatedAt: '2024-01-17T10:00:00Z',
+  },
+  {
+    id: '4',
+    make: 'Mercedes',
+    model: 'C-Class',
+    year: 2023,
+    price: 45000,
+    mileageKm: 12000,
+    transmission: 'Automatic',
+    fuelType: 'Gasoline',
+    category: 'RENTAL',
+    status: 'AVAILABLE',
+    imageUrl: MERCEDES,
+    description: 'Luxury sedan with advanced technology and comfort.',
+    createdAt: '2024-01-18T10:00:00Z',
+    updatedAt: '2024-01-18T10:00:00Z',
+  },
+  {
+    id: '5',
+    make: 'Ford',
+    model: 'Mustang',
+    year: 2023,
+    price: 55000,
+    mileageKm: 5000,
+    transmission: 'Automatic',
+    fuelType: 'Gasoline',
+    category: 'SALE',
+    status: 'RESERVED',
+    imageUrl: FORD,
+    description: 'Iconic muscle car with powerful performance and style.',
+    createdAt: '2024-01-19T10:00:00Z',
+    updatedAt: '2024-01-19T10:00:00Z',
+  },
+  {
+    id: '6',
+    make: 'Tesla',
+    model: 'Model 3',
+    year: 2023,
+    price: 42000,
+    mileageKm: 10000,
+    transmission: 'Automatic',
+    fuelType: 'Electric',
+    category: 'RENTAL',
+    status: 'AVAILABLE',
+    imageUrl: TESLA,
+    description: 'Electric sedan with cutting-edge technology and zero emissions.',
+    createdAt: '2024-01-20T10:00:00Z',
+    updatedAt: '2024-01-20T10:00:00Z',
+  },
+];
+
 export default function Inventory() {
-  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [vehicles, setVehicles] = useState<Vehicle[]>(dummyVehicles);
   const [filter, setFilter] = useState<Filter>('ALL');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    setError(null);
-
-    fetchVehicles(filter === 'ALL' ? undefined : filter)
-      .then((data) => {
-        if (!cancelled) setVehicles(data);
-      })
-      .catch((err: Error) => {
-        if (!cancelled) setError(err.message);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [filter]);
+  // Filter vehicles based on current filter
+  const filteredVehicles = filter === 'ALL' 
+    ? dummyVehicles 
+    : dummyVehicles.filter(vehicle => vehicle.category === filter);
 
   return (
     <section id="inventory" className="border-b border-line bg-offwhite">
@@ -70,18 +160,17 @@ export default function Inventory() {
 
         {error && (
           <p className="text-center text-sm text-ash">
-            Couldn&apos;t load live inventory {error}. Make sure the API
-            server is running on port 4000.
+            {error}
           </p>
         )}
 
-        {!loading && !error && vehicles.length === 0 && (
+        {!loading && !error && filteredVehicles.length === 0 && (
           <p className="text-center text-ash">No vehicles in this category yet.</p>
         )}
 
         {!loading && !error && vehicles.length > 0 && (
           <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {vehicles.map((vehicle) => (
+            {filteredVehicles.map((vehicle) => (
               <VehicleCard key={vehicle.id} vehicle={vehicle} />
             ))}
           </div>
