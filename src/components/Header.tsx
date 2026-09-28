@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import SignInModal from './SignInModal';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '#top' },
@@ -10,6 +11,7 @@ const NAV_ITEMS = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [signInModalOpen, setSignInModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +48,7 @@ export default function Header() {
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-6 sm:gap-8 md:flex">
+        <nav className="hidden items-center gap-4 sm:gap-6 md:flex">
           {NAV_ITEMS.map(({ label, href }) => (
             <a
               key={label}
@@ -71,6 +73,14 @@ export default function Header() {
               {label}
             </a>
           ))}
+          
+          {/* Sign In Button - Desktop */}
+          <button
+            onClick={() => setSignInModalOpen(true)}
+            className="px-4 py-2 text-sm font-medium text-crimson border border-crimson rounded-lg hover:bg-crimson hover:text-white transition-colors duration-200"
+          >
+            Sign In
+          </button>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -125,9 +135,39 @@ export default function Header() {
                 {label}
               </a>
             ))}
+            {/* Sign In Button - Mobile */}
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setSignInModalOpen(true);
+              }}
+              className="
+                block
+                mt-4
+                px-4
+                py-2
+                text-sm
+                font-medium
+                text-crimson
+                border border-crimson
+                rounded-lg
+                text-center
+                hover:bg-crimson
+                hover:text-white
+                transition-colors duration-200
+              "
+            >
+              Sign In
+            </button>
           </div>
         </nav>
       )}
+
+      {/* Sign In Modal */}
+      <SignInModal
+        isOpen={signInModalOpen}
+        onClose={() => setSignInModalOpen(false)}
+      />
     </header>
   );
 }
