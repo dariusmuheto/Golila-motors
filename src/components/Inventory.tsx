@@ -2,12 +2,12 @@ import { useState } from 'react';
 import type { Vehicle, VehicleCategory } from '../types';
 import VehicleCard from './VehicleCard';
 
-import BMW from '../assets/images/inventory/BMW-X5.webp';
+import BMW from '../assets/images/inventory/BMWX5.webp';
 import CAMRY from '../assets/images/inventory/camryToyota.webp';
-import HONDA from '../assets/images/inventory/Honda-Civic.jpg';
+import HONDA from '../assets/images/inventory/HondaCivic.jpg';
 import MERCEDES from '../assets/images/inventory/Mercedes-C-class.avif';
-import FORD from '../assets/images/inventory/Ford-Mustang.webp';
-import TESLA from '../assets/images/inventory/Tesla-Model-3.webp';
+import FORD from '../assets/images/inventory/FordMustang.webp';
+import TESLA from '../assets/images/inventory/TeslaModel-3.webp';
 
 type Filter = 'ALL' | VehicleCategory;
 
