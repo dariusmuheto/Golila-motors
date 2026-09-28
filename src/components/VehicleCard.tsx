@@ -17,7 +17,7 @@ function formatPrice(price: number) {
 export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   return (
     <div className="overflow-hidden rounded-lg border border-line bg-white shadow-sm transition-shadow hover:shadow-md">
-      <div className="flex h-32 sm:h-40 items-center justify-center bg-offwhite text-ash">
+      <div className="flex items-center justify-center bg-offwhite text-ash">
         {vehicle.imageUrl ? (
           <img
             src={vehicle.imageUrl}
