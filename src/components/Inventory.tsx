@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Vehicle, VehicleCategory } from '../types';
 import VehicleCard from './VehicleCard';
+import VehicleModal from './VehicleModal';
 
 import BMW from '../assets/images/inventory/BMWX5.webp';
 import CAMRY from '../assets/images/inventory/camryToyota.webp';
@@ -8,6 +9,30 @@ import HONDA from '../assets/images/inventory/HondaCivic.jpg';
 import MERCEDES from '../assets/images/inventory/MercedesCclass.avif';
 import FORD from '../assets/images/inventory/Fordmustang.webp';
 import TESLA from '../assets/images/inventory/TeslaModel3.webp';
+import BMW1 from '../assets/images/inventory/interior/InteriorBMW1.webp';
+import BMW2 from '../assets/images/inventory/interior/InteriorBMW2.webp';
+import BMW3 from '../assets/images/inventory/interior/InteriorBMW3.webp';
+import BMW4 from '../assets/images/inventory/interior/interiorBMW4.webp';
+import Toyota1 from '../assets/images/inventory/interior/camryInterior1.jpg';
+import Toyota2 from '../assets/images/inventory/interior/CamryInterior2.jpg';
+import Toyota3 from '../assets/images/inventory/interior/CamryInterior3.jpg';
+import Toyota4 from '../assets/images/inventory/interior/CamryInterior4.jpg';
+import Honda1 from '../assets/images/inventory/interior/InteriorHonda1.png';
+import Honda2 from '../assets/images/inventory/interior/InteriorHonda1.png';
+import Honda3 from '../assets/images/inventory/interior/InteriorHonda1.png';
+import Honda4 from '../assets/images/inventory/interior/InteriorHonda1.png';
+import Mercedes1 from '../assets/images/inventory/interior/InteriorBMW1.webp';
+import Mercedes2 from '../assets/images/inventory/interior/InteriorBMW2.webp';
+import Mercedes3 from '../assets/images/inventory/interior/InteriorBMW3.webp';
+import Mercedes4 from '../assets/images/inventory/interior/interiorBMW4.webp';
+import Ford1 from '../assets/images/inventory/interior/InteriorBMW1.webp';
+import Ford2 from '../assets/images/inventory/interior/InteriorBMW2.webp';
+import Ford3 from '../assets/images/inventory/interior/InteriorBMW3.webp';
+import Ford4 from '../assets/images/inventory/interior/interiorBMW4.webp';
+import Tesla1 from '../assets/images/inventory/interior/InteriorBMW1.webp';
+import Tesla2 from '../assets/images/inventory/interior/InteriorBMW2.webp';
+import Tesla3 from '../assets/images/inventory/interior/InteriorBMW3.webp';
+import Tesla4 from '../assets/images/inventory/interior/interiorBMW4.webp';
 
 type Filter = 'ALL' | VehicleCategory;
 
@@ -31,6 +56,7 @@ const dummyVehicles: Vehicle[] = [
     category: 'SALE',
     status: 'AVAILABLE',
     imageUrl: CAMRY,
+    interiorImages: [Toyota1, Toyota2, Toyota3, Toyota4],
     description:
       'Reliable and fuel-efficient sedan perfect for daily commuting.',
     createdAt: '2024-01-15T10:00:00Z',
@@ -48,6 +74,7 @@ const dummyVehicles: Vehicle[] = [
     category: 'SALE',
     status: 'AVAILABLE',
     imageUrl: BMW,
+    interiorImages: [BMW1, BMW2, BMW3, BMW4],
     description:
       'Luxury SUV with premium features and excellent performance.',
     createdAt: '2024-01-16T10:00:00Z',
@@ -65,6 +92,7 @@ const dummyVehicles: Vehicle[] = [
     category: 'SALE',
     status: 'AVAILABLE',
     imageUrl: HONDA,
+    interiorImages: [Honda1, Honda2, Honda3, Honda4],
     description:
       'Compact and efficient car with great fuel economy.',
     createdAt: '2024-01-17T10:00:00Z',
@@ -82,6 +110,7 @@ const dummyVehicles: Vehicle[] = [
     category: 'RENTAL',
     status: 'AVAILABLE',
     imageUrl: MERCEDES,
+    interiorImages: [Mercedes1, Mercedes2, Mercedes3, Mercedes4],
     description:
       'Luxury sedan with advanced technology and comfort.',
     createdAt: '2024-01-18T10:00:00Z',
@@ -99,6 +128,7 @@ const dummyVehicles: Vehicle[] = [
     category: 'SALE',
     status: 'RESERVED',
     imageUrl: FORD,
+    interiorImages: [Ford1, Ford2, Ford3, Ford4],
     description:
       'Iconic muscle car with powerful performance and style.',
     createdAt: '2024-01-19T10:00:00Z',
@@ -116,6 +146,7 @@ const dummyVehicles: Vehicle[] = [
     category: 'RENTAL',
     status: 'AVAILABLE',
     imageUrl: TESLA,
+    interiorImages: [Tesla1, Tesla2, Tesla3, Tesla4],
     description:
       'Electric sedan with cutting-edge technology and zero emissions.',
     createdAt: '2024-01-20T10:00:00Z',
@@ -125,6 +156,7 @@ const dummyVehicles: Vehicle[] = [
 
 export default function Inventory() {
   const [filter, setFilter] = useState<Filter>('ALL');
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
 
   // Filter vehicles based on the selected category
   const filteredVehicles =
@@ -133,6 +165,14 @@ export default function Inventory() {
       : dummyVehicles.filter(
           (vehicle) => vehicle.category === filter
         );
+
+  const handleVehicleClick = (vehicle: Vehicle) => {
+    setSelectedVehicle(vehicle);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedVehicle(null);
+  };
 
   return (
     <section
@@ -183,11 +223,19 @@ export default function Inventory() {
               <VehicleCard
                 key={vehicle.id}
                 vehicle={vehicle}
+                onClick={() => handleVehicleClick(vehicle)}
               />
             ))}
           </div>
         )}
       </div>
+
+      {/* Vehicle Modal */}
+      <VehicleModal
+        vehicle={selectedVehicle}
+        isOpen={!!selectedVehicle}
+        onClose={handleCloseModal}
+      />
     </section>
   );
 }

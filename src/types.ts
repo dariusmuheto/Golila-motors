@@ -16,4 +16,5 @@ export interface Vehicle {
   description: string | null;
   createdAt: string;
   updatedAt: string;
+  interiorImages?: string[];
 }
