@@ -9,6 +9,13 @@ import FORD from '../assets/images/inventory/Ford-Mustang.webp';
 import TESLA from '../assets/images/inventory/Tesla-Model-3.webp';
 
 
+import BMW from '../assets/images/inventory/BMW-X5.webp';
+import CAMRY from '../assets/images/inventory/camryToyota.webp';
+import HONDA from '../assets/images/inventory/Honda-Civic.jpg';
+import MERCEDES from '../assets/images/inventory/Mercedes-C-class.avif';
+import FORD from '../assets/images/inventory/Ford-Mustang.webp';
+import TESLA from '../assets/images/inventory/Tesla-Model-3.webp';
+
 type Filter = 'ALL' | VehicleCategory;
 
 const TABS: { label: string; value: Filter }[] = [
@@ -129,22 +136,31 @@ export default function Inventory() {
     : dummyVehicles.filter(vehicle => vehicle.category === filter);
 
   return (
-    <section id="inventory" className="border-b border-line bg-offwhite">
-      <div className="mx-auto max-w-content px-4 sm:px-6 py-16 sm:py-24">
-        <div className="mb-8 sm:mb-10 flex flex-col items-center gap-4 sm:gap-6 text-center">
+    <section
+      id="inventory"
+      className="border-b border-line bg-offwhite"
+    >
+      <div className="mx-auto max-w-content px-4 py-16 sm:px-6 sm:py-24">
+        {/* Header */}
+        <div className="mb-8 flex flex-col items-center gap-4 text-center sm:mb-10 sm:gap-6">
           <div>
-            <p className="mb-3 text-sm tracking-wide text-crimson">Inventory</p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-ink">
+            <p className="mb-3 text-sm tracking-wide text-crimson">
+              Inventory
+            </p>
+
+            <h2 className="text-2xl font-semibold text-ink sm:text-3xl md:text-4xl">
               Available Vehicles
             </h2>
           </div>
 
-          <div className="flex gap-2 rounded-full border border-line bg-white p-1 w-full max-w-md">
+          {/* Filter Tabs */}
+          <div className="flex w-full max-w-md gap-2 rounded-full border border-line bg-white p-1">
             {TABS.map((tab) => (
               <button
                 key={tab.value}
+                type="button"
                 onClick={() => setFilter(tab.value)}
-                className={`flex-1 rounded-full px-3 sm:px-4 py-2 text-sm sm:text-base font-medium transition-colors ${
+                className={`flex-1 rounded-full px-3 py-2 text-sm font-medium transition-colors sm:px-4 sm:text-base ${
                   filter === tab.value
                     ? 'bg-crimson text-white'
                     : 'text-ash hover:text-ink'
