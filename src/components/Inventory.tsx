@@ -8,14 +8,6 @@ import MERCEDES from '../assets/images/inventory/Mercedes-C-class.avif';
 import FORD from '../assets/images/inventory/Ford-Mustang.webp';
 import TESLA from '../assets/images/inventory/Tesla-Model-3.webp';
 
-
-import BMW from '../assets/images/inventory/BMW-X5.webp';
-import CAMRY from '../assets/images/inventory/camryToyota.webp';
-import HONDA from '../assets/images/inventory/Honda-Civic.jpg';
-import MERCEDES from '../assets/images/inventory/Mercedes-C-class.avif';
-import FORD from '../assets/images/inventory/Ford-Mustang.webp';
-import TESLA from '../assets/images/inventory/Tesla-Model-3.webp';
-
 type Filter = 'ALL' | VehicleCategory;
 
 const TABS: { label: string; value: Filter }[] = [
