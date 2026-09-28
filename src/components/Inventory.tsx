@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Vehicle, VehicleCategory } from '../types';
 import VehicleCard from './VehicleCard';
+
 import BMW from '../assets/images/inventory/BMW-X5.webp';
 import CAMRY from '../assets/images/inventory/camryToyota.webp';
 import HONDA from '../assets/images/inventory/Honda-Civic.jpg';
@@ -30,7 +31,8 @@ const dummyVehicles: Vehicle[] = [
     category: 'SALE',
     status: 'AVAILABLE',
     imageUrl: CAMRY,
-    description: 'Reliable and fuel-efficient sedan perfect for daily commuting.',
+    description:
+      'Reliable and fuel-efficient sedan perfect for daily commuting.',
     createdAt: '2024-01-15T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
   },
@@ -46,7 +48,8 @@ const dummyVehicles: Vehicle[] = [
     category: 'SALE',
     status: 'AVAILABLE',
     imageUrl: BMW,
-    description: 'Luxury SUV with premium features and excellent performance.',
+    description:
+      'Luxury SUV with premium features and excellent performance.',
     createdAt: '2024-01-16T10:00:00Z',
     updatedAt: '2024-01-16T10:00:00Z',
   },
@@ -62,7 +65,8 @@ const dummyVehicles: Vehicle[] = [
     category: 'SALE',
     status: 'AVAILABLE',
     imageUrl: HONDA,
-    description: 'Compact and efficient car with great fuel economy.',
+    description:
+      'Compact and efficient car with great fuel economy.',
     createdAt: '2024-01-17T10:00:00Z',
     updatedAt: '2024-01-17T10:00:00Z',
   },
@@ -78,7 +82,8 @@ const dummyVehicles: Vehicle[] = [
     category: 'RENTAL',
     status: 'AVAILABLE',
     imageUrl: MERCEDES,
-    description: 'Luxury sedan with advanced technology and comfort.',
+    description:
+      'Luxury sedan with advanced technology and comfort.',
     createdAt: '2024-01-18T10:00:00Z',
     updatedAt: '2024-01-18T10:00:00Z',
   },
@@ -94,7 +99,8 @@ const dummyVehicles: Vehicle[] = [
     category: 'SALE',
     status: 'RESERVED',
     imageUrl: FORD,
-    description: 'Iconic muscle car with powerful performance and style.',
+    description:
+      'Iconic muscle car with powerful performance and style.',
     createdAt: '2024-01-19T10:00:00Z',
     updatedAt: '2024-01-19T10:00:00Z',
   },
@@ -110,22 +116,23 @@ const dummyVehicles: Vehicle[] = [
     category: 'RENTAL',
     status: 'AVAILABLE',
     imageUrl: TESLA,
-    description: 'Electric sedan with cutting-edge technology and zero emissions.',
+    description:
+      'Electric sedan with cutting-edge technology and zero emissions.',
     createdAt: '2024-01-20T10:00:00Z',
     updatedAt: '2024-01-20T10:00:00Z',
   },
 ];
 
 export default function Inventory() {
-  const [vehicles, setVehicles] = useState<Vehicle[]>(dummyVehicles);
   const [filter, setFilter] = useState<Filter>('ALL');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  // Filter vehicles based on current filter
-  const filteredVehicles = filter === 'ALL' 
-    ? dummyVehicles 
-    : dummyVehicles.filter(vehicle => vehicle.category === filter);
+  // Filter vehicles based on the selected category
+  const filteredVehicles =
+    filter === 'ALL'
+      ? dummyVehicles
+      : dummyVehicles.filter(
+          (vehicle) => vehicle.category === filter
+        );
 
   return (
     <section
@@ -164,22 +171,19 @@ export default function Inventory() {
           </div>
         </div>
 
-        {loading && <p className="text-center text-ash">Loading inventory…</p>}
-
-        {error && (
-          <p className="text-center text-sm text-ash">
-            {error}
+        {/* Empty State */}
+        {filteredVehicles.length === 0 ? (
+          <p className="text-center text-ash">
+            No vehicles in this category yet.
           </p>
-        )}
-
-        {!loading && !error && filteredVehicles.length === 0 && (
-          <p className="text-center text-ash">No vehicles in this category yet.</p>
-        )}
-
-        {!loading && !error && vehicles.length > 0 && (
-          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        ) : (
+          /* Vehicle Grid */
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {filteredVehicles.map((vehicle) => (
-              <VehicleCard key={vehicle.id} vehicle={vehicle} />
+              <VehicleCard
+                key={vehicle.id}
+                vehicle={vehicle}
+              />
             ))}
           </div>
         )}
