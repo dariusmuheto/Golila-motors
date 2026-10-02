@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from 'react';
-// import { submitEnquiry } from '../lib/api';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 

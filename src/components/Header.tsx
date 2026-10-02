@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import SignInModal from './SignInModal';
+import AdminLoginModal from './AdminLoginModal';
 
 const NAV_ITEMS = [
-  { label: 'Home', href: '#top', key: 'top' },
-  { label: 'About us', href: '#about-us', key: 'about-us' },
-  { label: 'Services', href: '#what-we-do', key: 'what-we-do' },
-  { label: 'Contact us', href: '#contact', key: 'contact' },
+  { label: 'Home', href: '#top' },
+  { label: 'About us', href: '#about-us' },
+  { label: 'Services', href: '#what-we-do' },
+  { label: 'Contact us', href: '#contact' },
 ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [signInModalOpen, setSignInModalOpen] = useState(false);
+  const [adminLoginModalOpen, setAdminLoginModalOpen] = useState(false);
   const [activeNav, setActiveNav] = useState('Home');
 
   useEffect(() => {
@@ -20,7 +22,7 @@ export default function Header() {
       
       // Find which section is currently in view
       const scrollPosition = window.scrollY + 100;
-      
+
       // Check each section to see which is in view
       const sections = [
         { id: 'top', label: 'Home' },
@@ -105,12 +107,12 @@ export default function Header() {
             </a>
           ))}
           
-          {/* Sign In Button - Desktop */}
+          {/* Admin Login - Desktop */}
           <button
-            onClick={() => setSignInModalOpen(true)}
-            className="px-4 py-2 text-sm font-medium text-crimson border border-crimson rounded-lg hover:bg-crimson hover:text-white transition-colors duration-200"
+            onClick={() => setAdminLoginModalOpen(true)}
+            className="px-4 py-2 text-sm font-medium text-white bg-crimson rounded-lg hover:bg-crimson/90 transition-colors duration-200"
           >
-            Sign In
+            Admin Login
           </button>
         </nav>
 
@@ -177,30 +179,52 @@ export default function Header() {
                 {label}
               </a>
             ))}
-            {/* Sign In Button - Mobile */}
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setSignInModalOpen(true);
-              }}
-              className="
-                block
-                mt-4
-                px-4
-                py-2
-                text-sm
-                font-medium
-                text-crimson
-                border border-crimson
-                rounded-lg
-                text-center
-                hover:bg-crimson
-                hover:text-white
-                transition-colors duration-200
-              "
-            >
-              Sign In
-            </button>
+            {/* Sign In Button & Admin Access - Mobile */}
+            <div className="space-y-2">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setSignInModalOpen(true);
+                }}
+                className="
+                  block
+                  px-4
+                  py-2
+                  text-sm
+                  font-medium
+                  text-crimson
+                  border border-crimson
+                  rounded-lg
+                  text-center
+                  hover:bg-crimson
+                  hover:text-white
+                  transition-colors duration-200
+                "
+              >
+                Sign In
+              </button>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setAdminLoginModalOpen(true);
+                }}
+                className="
+                  block
+                  px-4
+                  py-2
+                  text-sm
+                  font-medium
+                  text-white
+                  bg-crimson
+                  rounded-lg
+                  text-center
+                  hover:bg-crimson/90
+                  transition-colors duration-200
+                "
+              >
+                Admin Login
+              </button>
+            </div>
           </div>
         </nav>
       )}
@@ -209,6 +233,13 @@ export default function Header() {
       <SignInModal
         isOpen={signInModalOpen}
         onClose={() => setSignInModalOpen(false)}
+      />
+
+      {/* Admin Login Modal */}
+      <AdminLoginModal
+        isOpen={adminLoginModalOpen}
+        onClose={() => setAdminLoginModalOpen(false)}
+        onLogin={(isAdminStatus) => console.log('Admin login status:', isAdminStatus)}
       />
     </header>
   );
