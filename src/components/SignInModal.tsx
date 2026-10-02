@@ -153,7 +153,7 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3 px-4 bg-crimson text-white font-medium rounded-lg hover:bg-crimson/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 text-base font-semibold"
+                className="w-full py-3 px-4 bg-crimson text-white rounded-lg hover:bg-crimson/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 text-base font-semibold"
               >
                 {isLoading ? 'Signing in...' : 'Sign In with Email'}
               </button>
