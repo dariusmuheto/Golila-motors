@@ -2,23 +2,52 @@ import { useEffect, useState } from 'react';
 import SignInModal from './SignInModal';
 
 const NAV_ITEMS = [
-  { label: 'Home', href: '#top' },
-  { label: 'About us', href: '#about-us' },
-  { label: 'Services', href: '#what-we-do' },
-  { label: 'Contact us', href: '#contact' },
+  { label: 'Home', href: '#top', key: 'top' },
+  { label: 'About us', href: '#about-us', key: 'about-us' },
+  { label: 'Services', href: '#what-we-do', key: 'what-we-do' },
+  { label: 'Contact us', href: '#contact', key: 'contact' },
 ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [signInModalOpen, setSignInModalOpen] = useState(false);
+  const [activeNav, setActiveNav] = useState('Home');
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
+      
+      // Find which section is currently in view
+      const scrollPosition = window.scrollY + 100;
+      
+      // Check each section to see which is in view
+      const sections = [
+        { id: 'top', label: 'Home' },
+        { id: 'aboutus', label: 'About us' },
+        { id: 'what-we-do', label: 'Services' },
+        { id: 'inventory', label: 'Inventory' },
+        { id: 'contact', label: 'Contact us' }
+      ];
+      
+      for (const section of sections) {
+        const element = document.getElementById(section.id);
+        if (element) {
+          const sectionTop = element.offsetTop;
+          const sectionBottom = sectionTop + element.offsetHeight;
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            setActiveNav(section.label);
+            break;
+          }
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
+
+    // Set initial active state based on current scroll position
+    handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -53,22 +82,24 @@ export default function Header() {
             <a
               key={label}
               href={href}
-              className="
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveNav(label);
+                const element = document.querySelector(href);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className={`
                 relative
                 text-sm font-medium uppercase tracking-[0.12em]
-                text-crimson
                 transition-colors duration-200
-                hover:text-white
-                after:absolute
-                after:-bottom-2
-                after:left-0
-                after:h-[2px]
-                after:w-0
-                after:bg-crimson
-                after:transition-all
-                after:duration-300
-                hover:after:w-full
-              "
+                ${
+                  activeNav === label
+                    ? 'text-white after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:bg-white after:transition-all after:duration-300'
+                    : 'text-crimson hover:text-white after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-crimson after:transition-all after:duration-300 hover:after:w-full'
+                }
+              `}
             >
               {label}
             </a>
@@ -122,15 +153,26 @@ export default function Header() {
               <a
                 key={label}
                 href={href}
-                className="
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveNav(label);
+                  setMobileMenuOpen(false);
+                  const element = document.querySelector(href);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className={`
                   block
                   py-2
                   text-sm font-medium uppercase tracking-[0.12em]
-                  text-crimson
                   transition-colors duration-200
-                  hover:text-white
-                "
-                onClick={() => setMobileMenuOpen(false)}
+                  ${
+                    activeNav === label
+                      ? 'text-white'
+                      : 'text-crimson hover:text-white'
+                  }
+                `}
               >
                 {label}
               </a>

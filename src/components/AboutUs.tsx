@@ -1,19 +1,15 @@
-import ABOUTUSIMAGE from "../../src/assets/images/aboutUsImage.png";
+import ABOUTUSIMAGE from "../assets/images/aboutUsImage.png";
 export default function AboutUs() {
   return (
     <section id="about-us" className="border-b border-line bg-paper">
       <div className="mx-auto max-w-content px-4 sm:px-6 py-16 sm:py-24">
-        <p className="mb-3 text-sm tracking-wide text-crimson">
-          Company profile
-        </p>
-
-        <h2 className="mb-8 sm:mb-12 text-2xl sm:text-3xl md:text-4xl font-semibold text-ink">
+     
+        <h2 className="mb-8 sm:mb-12 text-2xl sm:text-3xl md:text-4xl font-semibold text-crimson">
           About Us
         </h2>
-
         <div className="grid grid-cols-1 items-center gap-8 sm:gap-12 md:grid-cols-2 md:gap-16">
           {/* Left - Text */}
-          <div className="space-y-4 text-base sm:text-lg leading-relaxed text-ash">
+          <div className="space-y-6 text-base sm:text-lg leading-relaxed text-ash">
             <p>
               The company was established in 2010 with its head office at
               Gikondo, opposite former RWANDEX.

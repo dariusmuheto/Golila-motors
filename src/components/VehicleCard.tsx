@@ -6,14 +6,6 @@ const STATUS_STYLES: Record<Vehicle['status'], string> = {
   SOLD: 'bg-gray-200 text-gray-600',
 };
 
-function formatPrice(price: number) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0,
-  }).format(price);
-}
-
 interface VehicleCardProps {
   vehicle: Vehicle;
   onClick: () => void;
@@ -59,7 +51,6 @@ export default function VehicleCard({ vehicle, onClick }: VehicleCardProps) {
         )}
 
         <p className="mt-2 sm:mt-3 text-lg sm:text-xl font-semibold text-crimson">
-          {formatPrice(vehicle.price)}
           {vehicle.category === 'RENTAL' && <span className="text-sm text-ash"> / day</span>}
         </p>
 

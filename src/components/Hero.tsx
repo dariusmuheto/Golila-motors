@@ -1,5 +1,5 @@
 import Header from './Header';
-import LOGO from '../../src/assets/images/logo.png';
+import LOGO from '../assets/images/logo.png';
 
 export default function Hero() {
   return (
@@ -14,9 +14,7 @@ export default function Hero() {
         text-white
       "
     >
-      {/* =========================
-          SUBTLE BACKGROUND GLOW
-      ========================== */}
+
       <div
         aria-hidden="true"
         className="
@@ -27,9 +25,6 @@ export default function Hero() {
         "
       />
 
-      {/* =========================
-          TOP-LEFT RED ACCENT
-      ========================== */}
       <div
         aria-hidden="true"
         className="
@@ -47,7 +42,6 @@ export default function Hero() {
         "
       />
 
-      {/* TOP-LEFT INNER STRIPE */}
       <div
         aria-hidden="true"
         className="
@@ -65,16 +59,9 @@ export default function Hero() {
         "
       />
 
-      {/* =========================
-          HEADER
-      ========================== */}
       <div className="relative z-20">
         <Header />
       </div>
-
-      {/* =========================
-          HERO CONTENT
-      ========================== */}
       <div
         className="
           relative
@@ -93,37 +80,45 @@ export default function Hero() {
           text-center
         "
       >
-        {/* ==============================
-            GORILLA MOTORS LOGO
-        =============================== */}
-        <div
-          className="
-            hero-logo
-            mb-[60px]
-            sm:mb-[105px]
-            flex
-            h-[100px]
-            sm:h-[145px]
-            w-[100px]
-            sm:w-[145px]
-            items-center
-            justify-center
-          "
-        >
-          <img
-            src={LOGO}
-            alt="Gorilla Motors Logo"
-            className="
-              h-full
-              w-full
-              object-contain
-            "
-          />
-        </div>
 
-        {/* ==============================
-            TITLE
-        =============================== */}
+<p
+  className="
+    m-0
+    mb-[40px]
+    text-[16px]
+    leading-none
+    tracking-normal
+    text-white
+    font-bold
+
+  "
+>
+  Drive your dreams
+</p>
+
+{/* LOGO */}
+<div
+  className="
+    hero-logo
+    mb-[65px]
+    sm:mb-[75px]
+    flex
+    h-[100px]
+    sm:h-[145px]
+    w-[100px]
+    sm:w-[145px]
+    items-center
+    justify-center
+  "
+>
+  <img
+    src={LOGO}
+    alt="Gorilla Motors Logo"
+    className="h-full w-full object-contain"
+  />
+</div>
+
+
         <h1
           className="
             m-0
@@ -209,19 +204,22 @@ export default function Hero() {
       {/* =========================
           BOTTOM RED BAR
       ========================== */}
-      <div
-        aria-hidden="true"
-        className="
-          hero-bottom-bar
-          absolute
-          bottom-0
-          left-0
-          z-30
-          h-[55px]
-          w-full
-          bg-[#d90000]
-        "
-      />
+   <div
+  aria-hidden="true"
+  className="
+    hero-bottom-bar
+    absolute
+    bottom-0
+    left-0
+    z-30
+    h-[65px]
+    w-full
+    bg-gradient-to-r
+    from-[#ff001f]
+    via-[#d90018]
+    to-[#8f0008]
+  "
+/>
     </section>
   );
 }

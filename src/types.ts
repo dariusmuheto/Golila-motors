@@ -6,7 +6,7 @@ export interface Vehicle {
   make: string;
   model: string;
   year: number;
-  price: number;
+  // price: number;
   mileageKm: number | null;
   transmission: string | null;
   fuelType: string | null;
