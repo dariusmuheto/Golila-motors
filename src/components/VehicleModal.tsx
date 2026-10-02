@@ -74,8 +74,8 @@ export default function VehicleModal({ vehicle, isOpen, onClose }: VehicleModalP
             {vehicle.transmission} · {vehicle.fuelType} · {vehicle.mileageKm?.toLocaleString()} km
           </p>
           <p className="text-xl font-semibold text-crimson mt-2">
-            ${vehicle.price.toLocaleString()}
-            {vehicle.category === 'RENTAL' && <span className="text-sm text-ash"> / day</span>}
+            {/* ${vehicle.price.toLocaleString()} */}
+            {/* {vehicle.category === 'RENTAL' && <span className="text-sm text-ash"> </span>} */}
           </p>
         </div>
 
